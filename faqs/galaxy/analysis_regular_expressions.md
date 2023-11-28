@@ -8,7 +8,7 @@ contributors: [shiltemann]
 
 Regular expressions are a standardized way of describing patterns in textual data. They can be extremely useful for tasks such as finding and replacing data. They can be a bit tricky to master, but learning even just a few of the basics can help you get the most out of Galaxy.
 
-#### Finding
+**Finding**
 
 Below are just a few examples of basic expressions:
 
@@ -45,8 +45,7 @@ Below are just a few examples of basic expressions:
 | `^$`                 | empty line |
 
 
-
-#### Replacing
+**Replacing**
 
 Sometimes you need to capture the exact value you matched on, in order to use it in your replacement, we do this using capture groups `(...)`, which we can refer to using `\1`, `\2` etc for the first and second captured values.
 
@@ -66,3 +65,5 @@ There is a lot more you can do with regular expressions, and there are a few dif
 **Tip:** [RegexOne](https://regexone.com/) is a nice interactive tutorial to learn the basics of regular expressions.
 
 **Tip:** [Regex101.com](https://regex101.com/) is a great resource for interactively testing and constructing your regular expressions, it even provides an explanation of a regular expression if you provide one.
+
+**Tip:** [Cyrilex](https://extendsclass.com/regex-tester.html) is a visual regular expression tester.

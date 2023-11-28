@@ -18,11 +18,10 @@ contributors:
 - hexylena
 ---
 
+In this tutorial you'll learn how to run a workshop as a Galaxy Instructor
 
-# Introduction
-{:.no_toc}
 
-> ### Agenda
+> <agenda-title></agenda-title>
 >
 > In this tutorial, we will cover:
 >
@@ -140,16 +139,13 @@ Not everyone is always outwardly enthusiastic about the course for any number of
     Find someone you haven't talked to yet today, and talk to them. Make sure all the helpers have the same goal.
 
 6. Regularly ask questions of the trainees:
+
    - What data formats work here?
    - Where is the data coming from?
    - What data transformation is being made?
    - What were the data formats used today?
-repository_branch: "master"
-eepository_branch: "master"
-repository_branch: "master"
-sitory_branch: "master"
-
    - What were the main steps of today's workflow?
+
 7. Regularly remind trainees of things you've taught them
 
    Repeat again and again, in different ways, to reinforce concepts
@@ -168,4 +164,4 @@ sitory_branch: "master"
 3. Update this document with anything that you did that wasn't listed.
 
 # Conclusion
-{:.no_toc}
+

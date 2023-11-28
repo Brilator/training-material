@@ -18,12 +18,9 @@ contributors:
 - hexylena
 ---
 
-# Introduction
-{:.no_toc}
+These recommendations are highly inspired from the one by [The Carpentries](https://docs.carpentries.org/topic_folders/hosts_instructors/index.html)
 
-
-
-> ### Agenda
+> <agenda-title></agenda-title>
 >
 > In this tutorial, we will cover:
 >
@@ -31,11 +28,6 @@ contributors:
 > {:toc}
 >
 {: .agenda}
-
-
-# Checklists
-
-These recommendations are highly inspired from the one by [The Carpentries](https://docs.carpentries.org/topic_folders/hosts_instructors/index.html)
 
 ## Groundwork
 
@@ -191,4 +183,4 @@ These recommendations are highly inspired from the one by [The Carpentries](http
 4. Contact the participants with the links to the materials
 
 # Conclusion
-{:.no_toc}
+

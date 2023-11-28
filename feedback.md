@@ -8,11 +8,11 @@ layout: base
 {% assign tutorials = site.pages | where:"layout", "tutorial_hands_on" %}
 
 <!-- use chart.js for graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+<script src="{% link assets/js/Chart.bundle.js %}"></script>
 <!-- plugin for adding data labels to charts -->
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="{% link assets/js/chartjs-plugin-datalabels@0.7.0.js %}"></script>
 <!-- plugin for palette -->
-<script src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+<script src="{% link assets/js/chartjs-plugin-colorschemes.js %}"></script>
 <!-- define the charts -->
 <script type="text/javascript">
     const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
@@ -143,17 +143,17 @@ layout: base
         {% assign fdbk_over_time_labels = fdbk_over_time_labels | push: f.name %}
     {% endfor %}
     {% assign fdbk_by_note = tn.items | sort:'note' | group_by: 'note' %}
-    <script>
-        var topic_data =
-        {
-            label: "{{ tn.name }}",
-            data: [{% for c in fdbk_over_time %}{x:"{{ fdbk_over_time_labels[forloop.index0] }}", y: {{ c }} } {% unless forloop.last %},{% endunless %}{% endfor %}],
-            fill: false,
-        };
-        fdbk_over_month['topic-{{ topic_name }}'] = [topic_data];
-        fdbk_over_month['all_topics'].push(topic_data);
-        data_notes['topic-{{ topic_name }}'] = [{% for n in (0..5) %}{% assign f_f_n = fdbk_by_note | where: "name",n | first %}{% if f_f_n.size == 0 %}0{% else %}{{ f_f_n.items | size }}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}];
-    </script>
+<script>
+    var topic_data =
+    {
+        label: "{{ tn.name }}",
+        data: [{% for c in fdbk_over_time %}{x:"{{ fdbk_over_time_labels[forloop.index0] }}", y: {{ c }} } {% unless forloop.last %},{% endunless %}{% endfor %}],
+        fill: false,
+    };
+    fdbk_over_month['topic-{{ topic_name }}'] = [topic_data];
+    fdbk_over_month['all_topics'].push(topic_data);
+    data_notes['topic-{{ topic_name }}'] = [{% for n in (0..5) %}{% assign f_f_n = fdbk_by_note | where: "name",n | first %}{% if f_f_n.size == 0 %}0{% else %}{{ f_f_n.items | size }}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}];
+</script>
 
     {% assign fdbk_by_tutorial = tn.items | group_by: 'tutorial' | sort: 'name' %}
     {% for tun in fdbk_by_tutorial %}
@@ -175,17 +175,17 @@ layout: base
                 {% assign fdbk_over_time_labels = fdbk_over_time_labels | push: f.name %}
             {% endfor %}
             {% assign fdbk_by_note = tun.items | sort:'note' | group_by: 'note' %}
-            <script>
-                var tuto_data =
-                {
-                    label: "{{ tun.name }}",
-                    data: [{% for c in fdbk_over_time %}{x:"{{ fdbk_over_time_labels[forloop.index0] }}", y: {{ c }} } {% unless forloop.last %},{% endunless %}{% endfor %}],
-                    fill: false,
-                };
-                fdbk_over_month['tuto-{{ tuto_name }}'] = [tuto_data];
-                fdbk_over_month['topic-{{ topic_name }}'].push(tuto_data);
-                data_notes['tuto-{{ tuto_name }}'] = [{% for n in (0..5) %}{% assign f_f_n = fdbk_by_note | where: "name",n | first %}{% if f_f_n.size == 0 %}0{% else %}{{ f_f_n.items | size }}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}];
-            </script>
+<script>
+    var tuto_data =
+    {
+        label: "{{ tun.name }}",
+        data: [{% for c in fdbk_over_time %}{x:"{{ fdbk_over_time_labels[forloop.index0] }}", y: {{ c }} } {% unless forloop.last %},{% endunless %}{% endfor %}],
+        fill: false,
+    };
+    fdbk_over_month['tuto-{{ tuto_name }}'] = [tuto_data];
+    fdbk_over_month['topic-{{ topic_name }}'].push(tuto_data);
+    data_notes['tuto-{{ tuto_name }}'] = [{% for n in (0..5) %}{% assign f_f_n = fdbk_by_note | where: "name",n | first %}{% if f_f_n.size == 0 %}0{% else %}{{ f_f_n.items | size }}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}];
+</script>
         {% endif %}
     {% endfor %}
 {% endfor %}
@@ -209,9 +209,9 @@ layout: base
                             <h5 class="card-title">{{ fdbk | size }} responses</h5>
                             {% assign chart_id = 'allFdbkOverMonthGraph' %}
                             <canvas id="{{ chart_id }}" width="400" height="400">
-                                <script>
-                                    drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month.all_topics);
-                                </script>
+<script>
+    drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month.all_topics);
+</script>
                             </canvas>
                         </div>
                     </div>
@@ -223,10 +223,10 @@ layout: base
                             <h5 class="card-title">Rating Distribution</h5>
                             {% assign chart_id = 'allFdbkNoteGraph' %}
                             <canvas id="{{ chart_id }}" width="400" height="400">
-                                <script>
-                                    drawFdbkNoteGraph("{{ chart_id }}", data_notes.all_topics, labels_notes);
-                                    var counter = 0;
-                                </script>
+<script>
+    drawFdbkNoteGraph("{{ chart_id }}", data_notes.all_topics, labels_notes);
+    var counter = 0;
+</script>
                             </canvas>
                         </div>
                     </div>
@@ -237,6 +237,8 @@ layout: base
             {% for tn in fdbk_by_topic %}
                 {% assign t_metadata = topics | where: "title",tn.name | first %}
                 {% assign topic_name = t_metadata['name'] %}
+                {% if topic_name == '' or topic_name == nil %}
+                {% else %}
                 <h3 id="topic-{{ topic_name }}">{{ tn.name }}  <a href="{{ site.baseurl }}/topics/{{ topic_name }}">{% icon galaxy_instance %}</a></h3>
                 <div class="row">
                     <!-- feedback over time  -->
@@ -246,15 +248,15 @@ layout: base
                                 <h5 class="card-title">{{ tn.items | size }} responses</h5>
                                 {% assign chart_id = topic_name | append: '-topic-fdbkOverMonthGraph' %}
                                 <canvas id="{{ chart_id }}" width="400" height="400">
-                                    <script>
-                                        if ( counter > 4) {
-                                            window.addEventListener('DOMContentLoaded', (event) => {
-                                                drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['topic-{{ topic_name }}']);
-                                            });
-                                        } else {
-                                            drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['topic-{{ topic_name }}']);
-                                        }
-                                    </script>
+<script>
+    if ( counter > 4) {
+        window.addEventListener('DOMContentLoaded', (event) => {
+            drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['topic-{{ topic_name }}']);
+        });
+    } else {
+        drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['topic-{{ topic_name }}']);
+    }
+</script>
                                 </canvas>
                             </div>
                         </div>
@@ -266,16 +268,16 @@ layout: base
                                 <h5 class="card-title">Rating Distribution</h5>
                                 {% assign chart_id = topic_name | append: '-topic-fdbkNoteGraph' %}
                                 <canvas id="{{ chart_id }}" width="400" height="400">
-                                    <script>
-                                        if ( counter > 4) {
-                                            window.addEventListener('DOMContentLoaded', (event) => {
-                                                drawFdbkNoteGraph("{{ chart_id }}", data_notes['topic-{{ topic_name }}'], labels_notes);
-                                            });
-                                        } else {
-                                            drawFdbkNoteGraph("{{ chart_id }}", data_notes['topic-{{ topic_name }}'], labels_notes);
-                                        }
-                                        counter = counter + 1;
-                                    </script>
+<script>
+    if ( counter > 4) {
+        window.addEventListener('DOMContentLoaded', (event) => {
+            drawFdbkNoteGraph("{{ chart_id }}", data_notes['topic-{{ topic_name }}'], labels_notes);
+        });
+    } else {
+        drawFdbkNoteGraph("{{ chart_id }}", data_notes['topic-{{ topic_name }}'], labels_notes);
+    }
+    counter = counter + 1;
+</script>
                                 </canvas>
                             </div>
                         </div>
@@ -287,13 +289,15 @@ layout: base
                 {% for tun in fdbk_by_tutorial %}
                     {% assign tuto_metadata = tutorials | where: "title",tun.name | first %}
                     {% assign tuto_name = tuto_metadata['dir'] | split: "/" | last %}
-                    {% if tuto_name == '' %}
+                    {% if tuto_name == '' or tuto_name == nil %}
                         <div class="alert alert-warning" role="alert">
                             <p>Tutorial "{{ tun.name }}" is not available anymore.</p>
                         </div>
                     {% else %}
+                        {% assign lang = '' %}
                         {% if tuto_metadata['name'] != 'tutorial.md' %}
                             {% assign lang = tuto_metadata['name'] | split: "." | first %}
+                            {% assign tuto_base = tuto_name %}
                             {% assign tuto_name = tuto_name | append: lang %}
                         {% endif %}
                         <div class="accordion-card card" id="tutorial-{{ tuto_name }}">
@@ -320,11 +324,11 @@ layout: base
                                                     <h5 class="card-title">{{ tun.items | size }} responses</h5>
                                                     {% assign chart_id = tuto_name | append: '-tutorial-fdbkOverMonthGraph' %}
                                                     <canvas id="{{ chart_id }}" width="400" height="400">
-                                                        <script>
-                                                            window.addEventListener('DOMContentLoaded', (event) => {
-                                                                drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['tuto-{{ tuto_name }}']);
-                                                            });
-                                                        </script>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        drawFdbkOverMonthGraph("{{ chart_id }}", fdbk_over_month['tuto-{{ tuto_name }}']);
+    });
+</script>
                                                     </canvas>
                                                 </div>
                                             </div>
@@ -336,21 +340,27 @@ layout: base
                                                     <h5 class="card-title">Rating Distribution</h5>
                                                     {% assign chart_id = tuto_name | append: '-tutorial-fdbkNoteGraph' %}
                                                     <canvas id="{{ chart_id }}" width="400" height="400">
-                                                        <script>
-                                                            window.addEventListener('DOMContentLoaded', (event) => {
-                                                                drawFdbkNoteGraph("{{ chart_id }}", data_notes['tuto-{{ tuto_name }}'], labels_notes);
-                                                            });
-                                                        </script>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        drawFdbkNoteGraph("{{ chart_id }}", data_notes['tuto-{{ tuto_name }}'], labels_notes);
+    });
+</script>
                                                     </canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% if lang != '' %}
+                                    <a href="{{ site.baseurl }}/topics/{{ topic_name }}/tutorials/{{tuto_base}}/{{tuto_metadata['name'] | replace: ".md", ".html"}}">View this Tutorial</a>
+                                    {% else %}
+                                    <a href="{{ site.baseurl }}/topics/{{ topic_name }}/tutorials/{{tuto_name}}/tutorial.html">View this Tutorial</a>
+                                    {% endif %}
 
                                     <div class="row">
                                         <div class="col">
                                             <div class="card">
                                                 <div class="card-body">
+
                                                     <h5 class="card-title">Detailed feedback</h5>
                                                     <table class="table table-striped">
                                                         <thead>
@@ -367,8 +377,8 @@ layout: base
                                                                     {% if f.pro != null or f.con != null %}
                                                                     <tr>
                                                                         <td>{{ f.date | date: "%b %-d, %Y"  }}</td>
-                                                                        <td>{{ f.pro }}</td>
-                                                                        <td>{{ f.con }}</td>
+                                                                        <td>{{ f.pro | xml_escape }}</td>
+                                                                        <td>{{ f.con | xml_escape }}</td>
                                                                     </tr>
                                                                     {% endif %}
                                                                 {% endif %}
@@ -385,6 +395,7 @@ layout: base
                     {% endif %}
                 {% endfor %}
                 </div>
+                {% endif %}
             {% endfor %}
         </div>
 
